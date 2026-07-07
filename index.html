@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASIAM INSPECTOR — EXPOCALIDAD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple-deep:#3B1C6E;
+    --lilac:#7B5EA7;
+    --lilac-light:#C9B8E8;
+    --bg:#FAF9FC;
+    --paper:#FFFFFF;
+    --ink:#241145;
+    --ink-soft:#5B4B7A;
+    --azul:#2F4B8C;
+    --azul-bg:#EEF1FA;
+    --verde:#1E7A5F;
+    --verde-bg:#EAF6F1;
+    --amarillo:#A9791F;
+    --amarillo-bg:#FBF2E2;
+    --line:#E4DEF0;
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  /* ---------- MASTHEAD ---------- */
+  header.masthead{
+    background:linear-gradient(160deg,var(--purple-deep) 0%,#2A1350 100%);
+    color:#fff;
+    padding:36px 20px 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.masthead::after{
+    content:"";
+    position:absolute;
+    right:-60px; top:-60px;
+    width:220px; height:220px;
+    border:2px solid rgba(255,255,255,0.08);
+    border-radius:50%;
+  }
+  .brand-name{
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:clamp(28px,7vw,36px);
+    letter-spacing:0.5px;
+    margin:0;
+  }
+  .brand-sub{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--lilac-light);
+    margin-top:8px;
+  }
+  .accred-codes{
+    margin-top:16px;
+    display:inline-flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .accred-pill{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.5px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.18);
+    padding:5px 12px;
+    border-radius:100px;
+  }
+
+  /* ---------- INTRO / NAV CHIPS ---------- */
+  .intro{
+    max-width:640px;
+    margin:0 auto;
+    padding:26px 20px 6px;
+    text-align:center;
+  }
+  .intro p{
+    color:var(--ink-soft);
+    font-size:15px;
+    line-height:1.5;
+    margin:0;
+  }
+  nav.chips{
+    max-width:640px;
+    margin:18px auto 0;
+    padding:0 20px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  nav.chips a{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:13px;
+    font-weight:600;
+    padding:9px 14px;
+    border-radius:100px;
+    border:1.5px solid var(--line);
+    background:var(--paper);
+    color:var(--ink);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  nav.chips a:active{transform:scale(0.97);}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+  .dot.azul{background:var(--azul);}
+  .dot.verde{background:var(--verde);}
+  .dot.amarillo{background:var(--amarillo);}
+
+  /* ---------- SECTIONS ---------- */
+  main{max-width:640px; margin:0 auto; padding:8px 20px 60px;}
+  section.category{
+    margin-top:36px;
+    scroll-margin-top:20px;
+  }
+  .cat-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .seal{
+    width:44px; height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-family:'Playfair Display',serif;
+    font-weight:700;
+    font-size:17px;
+    color:#fff;
+    position:relative;
+  }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border:1.5px dashed rgba(255,255,255,0.6);
+    border-radius:50%;
+  }
+  .seal.azul{background:var(--azul);}
+  .seal.verde{background:var(--verde);}
+  .seal.amarillo{background:var(--amarillo);}
+
+  .cat-title{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    font-size:20px;
+    margin:0;
+  }
+  .cat-title small{
+    display:block;
+    font-family:'IBM Plex Sans',sans-serif;
+    font-weight:400;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+
+  /* accordion (Conozca ASIAM) */
+  details.acc{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:4px solid var(--azul);
+    border-radius:var(--radius);
+    margin-bottom:10px;
+    overflow:hidden;
+  }
+  details.acc summary{
+    list-style:none;
+    padding:15px 16px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  details.acc summary::-webkit-details-marker{display:none;}
+  details.acc summary::after{
+    content:"+";
+    font-size:20px;
+    font-weight:400;
+    color:var(--azul);
+    transition:transform .2s ease;
+  }
+  details.acc[open] summary::after{content:"–";}
+  .acc-body{
+    padding:0 16px 16px;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink-soft);
+  }
+  .acc-body ul{margin:8px 0 0; padding-left:18px;}
+  .acc-body li{margin-bottom:4px;}
+  .acc-body strong{color:var(--ink);}
+
+  /* action cards (Empresas / Profesionales) */
+  a.action{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:15px 16px;
+    margin-bottom:10px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  a.action:active{transform:scale(0.985);}
+  a.action .icn{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:17px;
+    flex-shrink:0;
+  }
+  section.category.empresas a.action .icn{background:var(--verde-bg); color:var(--verde);}
+  section.category.profesionales a.action .icn{background:var(--amarillo-bg); color:var(--amarillo);}
+  a.action .txt{flex:1;}
+  a.action .txt .t{font-weight:600; font-size:15px;}
+  a.action .txt .d{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+  a.action .arrow{font-size:18px; color:var(--line); flex-shrink:0;}
+
+  section.category.empresas{border-left:none;}
+  section.category.empresas .seal{background:var(--verde);}
+  section.category.profesionales .seal{background:var(--amarillo);}
+
+  footer{
+    text-align:center;
+    padding:30px 20px 40px;
+    color:var(--ink-soft);
+    font-size:12px;
+  }
+  footer .f-brand{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-size:11px;
+    color:var(--purple-deep);
+    margin-bottom:6px;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <p class="brand-name">ASIAM INSPECTOR</p>
+  <p class="brand-sub">Certificación · Inspección · Control de calidad</p>
+  <div class="accred-codes">
+    <span class="accred-pill">SAE OCP-12-004</span>
+    <span class="accred-pill">ONAC 22-CPR-017</span>
+    <span class="accred-pill">ISO/IEC 17065 · 17020</span>
+  </div>
+</header>
+
+<div class="intro">
+  <p>Bienvenido al espacio digital de ASIAM en EXPOCALIDAD. Elija la categoría que le interesa o recorra todo el contenido a continuación.</p>
+</div>
+
+<nav class="chips">
+  <a href="#conozca"><span class="dot azul"></span>Conozca ASIAM</a>
+  <a href="#empresas"><span class="dot verde"></span>Empresas</a>
+  <a href="#profesionales"><span class="dot amarillo"></span>Profesionales</a>
+</nav>
+
+<main>
+
+  <!-- ===================== CONOZCA ASIAM ===================== -->
+  <section class="category conozca" id="conozca">
+    <div class="cat-header">
+      <div class="seal azul">A</div>
+      <h2 class="cat-title">Conozca ASIAM<small>Certificación e inspección de conformidad</small></h2>
+    </div>
+
+    <details class="acc" open>
+      <summary>Conozca nuestros servicios</summary>
+      <div class="acc-body">
+        <p>Desde 2004 ayudamos a empresas a reducir riesgos en su cadena de suministro mediante inspección directa en fábrica o bodega, y certificación de conformidad bajo normativa vigente.</p>
+        <ul>
+          <li><strong>Electrodomésticos y equipos eléctricos:</strong> ventiladores, licuadoras, afeitadoras, ollas eléctricas, aspiradoras y similares.</li>
+          <li><strong>Utensilios de cocina y vajillas:</strong> vidrio, cerámica, aluminio, hierro y acero.</li>
+          <li><strong>Equipos de protección personal:</strong> cascos de protección.</li>
+          <li><strong>Otros productos regulados:</strong> juguetes, alfombras, cepillos dentales, prendas de vestir, calzado, artículos de cuero y alimentos envasados.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>¿Por qué elegir ASIAM?</summary>
+      <div class="acc-body">
+        <ul>
+          <li>Organismo acreditado bajo ISO/IEC 17065 e ISO/IEC 17020.</li>
+          <li>Presencia en Ecuador, Colombia, China y otros países.</li>
+          <li>Ética, imparcialidad y confidencialidad en cada proceso.</li>
+          <li>Personal técnico competente y en formación continua.</li>
+          <li>Atención ágil, sin tecnicismos ni retrasos innecesarios.</li>
+          <li>Amplio alcance de acreditación por familia de producto.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="acc">
+      <summary>Nuestras acreditaciones</summary>
+      <div class="acc-body">
+        <p><strong>Organismo de Certificación de Productos (OCP)</strong> — acreditado por SAE (Ecuador) bajo ISO/IEC 17065, código <strong>OCP-12-004</strong>, y por ONAC (Colombia) a través de ASIAMCO S.A.S., código <strong>22-CPR-017</strong>.</p>
+        <p><strong>Organismo de Inspección (OI)</strong> — acreditado bajo ISO/IEC 17020.</p>
+        <p>El alcance vigente y el listado de certificados activos están disponibles a solicitud a través del correo de contacto en la sección Empresas.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===================== EMPRESAS ===================== -->
+  <section class="category empresas" id="empresas">
+    <div class="cat-header">
+      <div class="seal verde">E</div>
+      <h2 class="cat-title">Empresas<small>Cotizaciones, reuniones y portafolio</small></h2>
+    </div>
+
+    <a class="action" href="mailto:lilibethortiz@asiam-lat.com?subject=Solicitud%20de%20cotizaci%C3%B3n%20-%20EXPOCALIDAD&body=Hola%2C%0A%0AVisit%C3%A9%20el%20stand%20de%20ASIAM%20en%20EXPOCALIDAD%20y%20quisiera%20solicitar%20una%20cotizaci%C3%B3n%20para%3A%0A%0A-%20Producto%2Fservicio%3A%20%0A-%20Empresa%3A%20%0A-%20Tel%C3%A9fono%3A%20%0A%0AGracias.">
+      <span class="icn">$</span>
+      <span class="txt">
+        <span class="t">Solicite una cotización</span>
+        <span class="d">Le respondemos con el alcance y tiempos aplicables</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="action" href="mailto:lilibethortiz@asiam-lat.com?subject=Solicitud%20de%20reuni%C3%B3n%20-%20EXPOCALIDAD&body=Hola%2C%0A%0AVisit%C3%A9%20el%20stand%20de%20ASIAM%20en%20EXPOCALIDAD%20y%20quisiera%20agendar%20una%20reuni%C3%B3n%20para%20conversar%20sobre%3A%0A%0A-%20Tema%3A%20%0A-%20Empresa%3A%20%0A-%20Disponibilidad%3A%20%0A%0AGracias.">
+      <span class="icn">◷</span>
+      <span class="txt">
+        <span class="t">Agende una reunión</span>
+        <span class="d">Coordinamos fecha y modalidad con usted</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="action" href="mailto:lilibethortiz@asiam-lat.com?subject=Solicitud%20de%20portafolio%20de%20servicios%20-%20EXPOCALIDAD&body=Hola%2C%0A%0AVisit%C3%A9%20el%20stand%20de%20ASIAM%20en%20EXPOCALIDAD%20y%20quisiera%20recibir%20el%20portafolio%20completo%20de%20servicios.%0A%0A-%20Empresa%3A%20%0A-%20Sector%2Fproducto%20de%20inter%C3%A9s%3A%20%0A%0AGracias.">
+      <span class="icn">▤</span>
+      <span class="txt">
+        <span class="t">Descargue el portafolio de servicios</span>
+        <span class="d">Se lo enviamos directo a su correo</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+  </section>
+
+  <!-- ===================== PROFESIONALES ===================== -->
+  <section class="category profesionales" id="profesionales">
+    <div class="cat-header">
+      <div class="seal amarillo">P</div>
+      <h2 class="cat-title">Profesionales<small>Únase al equipo y manténgase conectado</small></h2>
+    </div>
+
+    <a class="action" href="mailto:luisgaleano@asiam-lat.com?subject=Inter%C3%A9s%20en%20vacantes%20-%20EXPOCALIDAD&body=Hola%2C%0A%0AVisit%C3%A9%20el%20stand%20de%20ASIAM%20en%20EXPOCALIDAD%20y%20me%20interesa%20conocer%20oportunidades%20para%20trabajar%20como%20inspector%2Fauditor%2Fpersonal%20t%C3%A9cnico.%0A%0A-%20Perfil%2Fexperiencia%3A%20%0A%0AGracias.">
+      <span class="icn">⚙</span>
+      <span class="txt">
+        <span class="t">Trabaje con nosotros</span>
+        <span class="d">Vacantes para inspectores, auditores y personal técnico</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="action" href="mailto:luisgaleano@asiam-lat.com?subject=Aplicaci%C3%B3n%20-%20Hoja%20de%20vida%20-%20EXPOCALIDAD&body=Hola%2C%0A%0AAdjunto%20mi%20hoja%20de%20vida%20luego%20de%20visitar%20el%20stand%20de%20ASIAM%20en%20EXPOCALIDAD.%0A%0A-%20Perfil%2Fcargo%20de%20inter%C3%A9s%3A%20%0A%0A(Por%20favor%20adjunte%20su%20CV%20a%20este%20correo%20antes%20de%20enviarlo)%0A%0AGracias.">
+      <span class="icn">✎</span>
+      <span class="txt">
+        <span class="t">Registre su hoja de vida</span>
+        <span class="d">Adjunte su CV directo en el correo</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="action" href="https://www.linkedin.com/company/asiam-inspector/" target="_blank" rel="noopener">
+      <span class="icn">in</span>
+      <span class="txt">
+        <span class="t">Síganos en LinkedIn</span>
+        <span class="d">Actualizaciones normativas y profesionales</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+
+    <a class="action" href="https://www.instagram.com/asiaminspector/" target="_blank" rel="noopener">
+      <span class="icn">◎</span>
+      <span class="txt">
+        <span class="t">Síganos en Instagram</span>
+        <span class="d">Detrás de cámaras y presencia en eventos</span>
+      </span>
+      <span class="arrow">›</span>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-brand">ASIAM INSPECTOR</div>
+  <div>Organismo de Certificación de Productos (SAE OCP-12-004) · Organismo de Inspección · ONAC 22-CPR-017</div>
+</footer>
+
+</body>
+</html>
